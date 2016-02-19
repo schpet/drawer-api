@@ -12,6 +12,11 @@ gem 'pg'
 gem 'oauth'
 gem 'jwt'
 
+group :development, :test do
+  gem 'pry-rails'
+  gem 'rspec-rails'
+  gem 'dotenv-rails'
+end
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
