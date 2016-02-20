@@ -17,3 +17,7 @@
 .byebug_history
 
 /node_modules
+/npm-debug.log
+
+# the client shoves stuff into ./public
+/public
