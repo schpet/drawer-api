@@ -3,11 +3,11 @@ import { connect } from 'react-redux'
 
 class Document extends React.Component {
   render () {
-    const { id } = this.props
+    const { id } = this.props.doc
 
     return (
       <div>
-        document:
+        <b>document:</b>
         {id}
       </div>
     )
@@ -15,7 +15,7 @@ class Document extends React.Component {
 }
 
 Document.propTypes = {
-  id: React.PropTypes.string.isRequired
+  doc: React.PropTypes.object.isRequired
 }
 
 export default connect()(Document)
