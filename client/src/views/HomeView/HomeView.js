@@ -24,6 +24,7 @@ type Props = {
 export class HomeView extends React.Component<void, Props, void> {
   static propTypes = {
     counter: PropTypes.number.isRequired,
+    documents: PropTypes.array.isRequired,
     doubleAsync: PropTypes.func.isRequired,
     increment: PropTypes.func.isRequired
   };
@@ -57,8 +58,10 @@ export class HomeView extends React.Component<void, Props, void> {
 }
 
 const mapStateToProps = (state) => ({
-  counter: state.counter
+  counter: state.counter,
+  documents: state.documents
 })
+
 export default connect((mapStateToProps), {
   increment: () => increment(1),
   doubleAsync
