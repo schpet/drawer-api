@@ -58,8 +58,7 @@
       }
     }
   },
-  "repository": {
-  },
+  "repository": {},
   "author": "Peter Schilling",
   "license": "MIT",
   "dependencies": {
@@ -68,6 +67,7 @@
     "debug": "^2.2.0",
     "history": "^2.0.0",
     "iconv-lite": "^0.4.13",
+    "isomorphic-fetch": "^2.2.1",
     "koa": "^2.0.0-alpha.3",
     "koa-connect-history-api-fallback": "^0.3.0",
     "koa-convert": "^1.2.0",
