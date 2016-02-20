@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   root to: "drawer#index"
 
   namespace :api do
-    resources :documents
+    resources :documents, only: [:index]
   end
+
+  match '*all', to: 'application#preflight', via: [:options]
 end
