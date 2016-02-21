@@ -1,4 +1,6 @@
 import React, { PropTypes } from 'react'
+
+import { Menu } from 'components/Menu'
 import '../../styles/core.scss'
 
 // Note: Stateless/function components *will not* hot reload!
@@ -13,6 +15,7 @@ import '../../styles/core.scss'
 function CoreLayout ({ children }) {
   return (
     <div className='page-container'>
+      <Menu />
       <div className='view-container'>
         {children}
       </div>
