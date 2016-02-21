@@ -21,3 +21,5 @@
 
 # the client shoves stuff into ./public
 /public
+
+.env

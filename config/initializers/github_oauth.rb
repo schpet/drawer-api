@@ -1,6 +1,6 @@
-# GITHUB = OAuth::Consumer.new(
-#   Rails.application.secrets.twitter_consumer_key,
-#   Rails.application.secrets.twitter_consumer_secret,
-#   authorize_path: '/oauth/authenticate',
-#   site: 'https://api.twitter.com'
-# )
+GITHUB = OAuth::Consumer.new(
+  Rails.application.secrets.github_consumer_key,
+  Rails.application.secrets.github_consumer_secret,
+  authorize_path: '/oauth/authenticate',
+  site: 'https://github.com/login/oauth/authorize'
+)
