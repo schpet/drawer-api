@@ -15,6 +15,11 @@ class TokensController < ApplicationController
       profile_response = token.get("https://api.github.com/user")
       profile = JSON.parse(profile_response.body)
 
+      # TODO figure out if they are in the right org, and limit access
+
+      # TODO hold onto their accsess token to query gh api at a later date?
+      # figure out how omniauth does that
+
       user = User.where(uid: profile["id"]).first_or_create do |u| 
         u.handle = profile["login"]
       end
