@@ -9,13 +9,15 @@ gem 'active_model_serializers', '~> 0.10.0.rc4'
 
 gem 'pg'
 
-gem 'oauth'
+gem 'oauth2'
 gem 'jwt'
 
 group :development, :test do
   gem 'pry-rails'
   gem 'rspec-rails'
   gem 'dotenv-rails'
+  gem 'http_logger'
+
 end
 
 # To use ActiveModel has_secure_password

@@ -9,5 +9,8 @@ Rails.application.routes.draw do
     resources :documents, only: [:index]
   end
 
+  get 'request_token', to: 'tokens#request_token'
+  get 'access_token', to: 'tokens#access_token'
+
   match '*all', to: 'application#preflight', via: [:options]
 end

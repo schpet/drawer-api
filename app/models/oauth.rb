@@ -1,3 +1,3 @@
 class Oauth < ActiveRecord::Base
-  validates :token, :secret, presence: true
+  has_secure_token :state
 end
