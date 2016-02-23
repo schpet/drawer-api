@@ -1,3 +1,3 @@
 class User < ActiveRecord::Base
-  validates :uid, :handle, presence: true
+  validates :uid, :handle, :provider, :token, presence: true
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160222060355) do
+ActiveRecord::Schema.define(version: 20160223060600) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,8 @@ ActiveRecord::Schema.define(version: 20160222060355) do
     t.text     "handle",     null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "provider",   null: false
+    t.string   "token",      null: false
     t.index ["handle"], name: "index_users_on_handle", using: :btree
     t.index ["uid"], name: "index_users_on_uid", using: :btree
   end
