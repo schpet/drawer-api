@@ -34,14 +34,12 @@ export const fetchDocuments = () => {
 // Action Handlers
 // ------------------------------------
 const ACTION_HANDLERS = {
-  [REQUEST_DOCUMENTS]: (state, { payload }) => {
-    console.log('request made')
+  [REQUEST_DOCUMENTS]: (state) => {
     return Object.assign({}, state, {
       isFetching: true
     })
   },
   [RECEIVE_DOCUMENTS]: (state, { documents }) => {
-    console.log('received')
     return Object.assign({}, state, {
       isFetching: false,
       items: documents
