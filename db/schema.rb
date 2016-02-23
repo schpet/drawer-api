@@ -36,7 +36,6 @@ ActiveRecord::Schema.define(version: 20160223060600) do
     t.text     "handle",     null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string   "provider",   null: false
     t.string   "token",      null: false
     t.index ["handle"], name: "index_users_on_handle", using: :btree
     t.index ["uid"], name: "index_users_on_uid", using: :btree
