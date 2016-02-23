@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     resources :documents, only: [:index]
+    resource :user, only: [:show]
   end
 
   get 'request_token', to: 'tokens#request_token'

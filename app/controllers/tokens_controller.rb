@@ -28,7 +28,7 @@ class TokensController < ApplicationController
     # TODO hold onto their access token to query gh api at a later date?
     # figure out how omniauth does that
 
-    user = User.where(uid: profile.fetch("id"), provider: "github").first_or_create do |u| 
+    user = User.where(uid: profile.fetch("id")).first_or_create do |u| 
       u.handle = profile.fetch("login")
       u.token = token.token
     end
