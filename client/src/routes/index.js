@@ -11,7 +11,6 @@ import HomeView from 'views/HomeView/HomeView'
 import AboutView from 'views/AboutView/AboutView'
 
 export default (store) => {
-  console.log('hello')
   return (
     <Route path='/' component={CoreLayout}>
       <IndexRoute component={HomeView} />

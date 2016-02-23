@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
+import Menu from 'components/Menu'
 
-import { Menu } from 'components/Menu'
 import '../../styles/core.scss'
 
 // Note: Stateless/function components *will not* hot reload!

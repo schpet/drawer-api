@@ -6,7 +6,7 @@ import { fetchDocuments } from '../../redux/modules/documents'
 import { fetchUser } from '../../redux/modules/user'
 import DuckImage from './Duck.jpg'
 import classes from './HomeView.scss'
-import Document from '../../components/Document'
+import Document from 'components/Document'
 import Uri from 'jsuri'
 
 // We avoid using the `@connect` decorator on the class definition so
@@ -19,7 +19,8 @@ export class HomeView extends React.Component {
     doubleAsync: PropTypes.func.isRequired,
     increment: PropTypes.func.isRequired,
     fetchDocuments: PropTypes.func.isRequired,
-    fetchUser: PropTypes.func.isRequired
+    fetchUser: PropTypes.func.isRequired,
+    user: PropTypes.object.isRequired
   }
 
   componentDidMount () {
@@ -28,6 +29,9 @@ export class HomeView extends React.Component {
     let jwt = new Uri(location.search).getQueryParamValue('jwt')
     if (jwt) {
       localStorage.setItem('jwt', jwt)
+    }
+
+    if (!this.props.user.loggedIn) {
       this.props.fetchUser()
     }
   }
@@ -75,6 +79,7 @@ const mapStateToProps = (state, ownProps) => {
   return ({
     counter: state.counter,
     documents: state.documents,
+    user: state.user,
     dispatch: ownProps.dispatch
   })
 }
