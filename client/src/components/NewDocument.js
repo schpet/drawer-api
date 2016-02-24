@@ -9,8 +9,8 @@ class NewDocument extends React.Component {
     this.state = {}
   }
 
-  uploadFile (keys, files) {
-    let fd = this.buildFormData(keys.fields, files)
+  uploadFile (keys, file) {
+    let fd = this.buildFormData(keys.fields, file)
 
     request
       .post(keys.url)
@@ -20,7 +20,7 @@ class NewDocument extends React.Component {
         console.log('Percentage done: ', e.percent)
       })
       .end((err, res) => {
-        // Calling the end function will send the request
+        console.log('success!')
         console.log(res)
       })
   }
@@ -34,55 +34,6 @@ class NewDocument extends React.Component {
     }
     data.append('file', file)
     return data
-  }
-  uploadFileFetch (keys, file) {
-    const { fields } = keys
-    let data = new FormData()
-    for (var prop in fields) {
-      if (fields.hasOwnProperty(prop)) {
-        data.append(prop, fields[prop])
-      }
-    }
-    data.append('file', file)
-
-    console.log(data)
-    fetch(keys.url,
-      {
-        method: 'POST',
-        body: data,
-        headers: {
-          'Accept': 'XML'
-        }
-      }
-    ).then((response) => {
-      console.log('have response!!')
-      console.log(response)
-    })
-  }
-
-  // deleteme
-  uploadFileXHR (keys, file) {
-    const { fields } = keys
-    var uri = keys.url
-    var xhr = new XMLHttpRequest()
-    var fd = new FormData()
-
-    xhr.open('POST', uri, true)
-    xhr.onreadystatechange = () => {
-      if (xhr.readyState === 4 && xhr.status === 201) {
-        console.log("success!")
-      }
-    }
-
-    for (var prop in fields) {
-      if (fields.hasOwnProperty(prop)) {
-        fd.append(prop, fields[prop])
-      }
-    }
-    fd.append('file', file)
-
-    // Initiate a multipart/form-data upload
-    xhr.send(fd)
   }
 
   onDrop (files) {
