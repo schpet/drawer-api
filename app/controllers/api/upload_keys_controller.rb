@@ -3,7 +3,11 @@ class Api::UploadKeysController < ApplicationController
   before_action :set_s3_direct_post, only: [:create]
 
   def create
-    render json: @s3_direct_post
+    render json: {
+      fields: @s3_direct_post.fields,
+      url: @s3_direct_post.url,
+      host: URI.parse(@s3_direct_post.url).host
+    }
   end
 
   private 
