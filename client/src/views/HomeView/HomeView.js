@@ -7,6 +7,7 @@ import { fetchUser } from '../../redux/modules/user'
 import DuckImage from './Duck.jpg'
 import classes from './HomeView.scss'
 import Document from 'components/Document'
+import NewDocument from 'components/NewDocument'
 import Uri from 'jsuri'
 
 // todo: look at this more
@@ -44,6 +45,7 @@ export class HomeView extends React.Component {
     return (
       <div>
         <div className='container'>
+          <NewDocument />
           <ul>
             {documents.items.map((doc) =>
               <Document key={doc.id} doc={doc} />
