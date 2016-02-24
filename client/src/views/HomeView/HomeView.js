@@ -9,6 +9,9 @@ import classes from './HomeView.scss'
 import Document from 'components/Document'
 import Uri from 'jsuri'
 
+// todo: look at this more
+// https://github.com/reactjs/react-router/blob/master/examples/auth-flow/app.js
+
 // We avoid using the `@connect` decorator on the class definition so
 // that we can export the undecorated component for testing.
 // See: http://rackt.github.io/redux/docs/recipes/WritingTests.html
