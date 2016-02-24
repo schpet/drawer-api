@@ -11,6 +11,7 @@ gem 'pg'
 
 gem 'oauth2'
 gem 'jwt'
+gem 'aws-sdk', '~> 2'
 
 group :development, :test do
   gem 'pry-rails'
