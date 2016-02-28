@@ -1,27 +1,57 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import Dropzone from 'react-dropzone'
 import request from 'superagent'
+import unorm from 'unorm'
+import latinize from 'latinize'
+import { createDocument } from 'redux/modules/documents'
 
 class NewDocument extends React.Component {
   constructor (props) {
     super(props)
-    this.state = {}
+    this.state = {
+      progress: null
+    }
   }
 
   uploadFile (keys, file) {
-    let fd = this.buildFormData(keys.fields, file)
+    // from react s3 uploader
+    const normalizedFileName = unorm.nfc(file.name.replace(/\s+/g, '_'))
+    const fileName = latinize(normalizedFileName)
+
+    let formData = this.buildFormData({
+      ...keys.fields,
+      'Content-Type': file.type,
+      'Content-Disposition': `inline; filename=${fileName}`
+    }, file)
 
     request
       .post(keys.url)
-      .send(fd)
+      .send(formData)
       .set('Accept', 'XML')
+      // .set('Content-Type', file.type)
+      // .set('Content-Disposition', `inline; filename=${fileName}`)
       .on('progress', (e) => {
-        console.log('Percentage done: ', e.percent)
+        // TODO handle multiple uploads
+        this.setState({ progress: e.percent })
       })
       .end((err, res) => {
-        console.log('success!')
-        console.log(res)
+        if (err) {
+          console.log(err.stack)
+        }
+        this.setState({ progress: null })
+
+        this.setState
+
+        let data = res.xhr.responseXML
+
+        let key = data.getElementsByTagName('Key')[0]
+                      .childNodes[0]
+                      .nodeValue
+
+        console.log(key, file.size)
+        this.props.createDocument(fileName, key, file.type, file.size)
+        console.log("created doc?")
       })
   }
 
@@ -46,19 +76,6 @@ class NewDocument extends React.Component {
         .then((response) => response.json())
         .then((json) => { this.uploadFile(json, file) })
     })
-
-    // new S3Upload({
-    //   fileElement: findDOMNode(this),
-    //   signingUrl: this.props.signingUrl,
-    //   onProgress: this.props.onProgress,
-    //   onFinishS3Put: this.props.onFinish,
-    //   onError: this.props.onError,
-    //   signingUrlHeaders: this.props.signingUrlHeaders,
-    //   signingUrlQueryParams: this.props.signingUrlQueryParams,
-    //   uploadRequestHeaders: this.props.uploadRequestHeaders,
-    //   contentDisposition: this.props.contentDisposition,
-    //   server: this.props.server
-    // });
   }
 
   onOpenClick () {
@@ -70,18 +87,29 @@ class NewDocument extends React.Component {
   }
 
   render () {
+    if (this.state.progress) {
+      return (
+        <div>
+          {this.state.progress}
+        </div>
+      )
+    }
+
     return (
       <div>
         <Dropzone ref='dropzone' onDrop={this.onDrop.bind(this)} />
         <button type='button' onClick={this.onOpenClick.bind(this)}>
-            Open Dropzone
+          Open Dropzone
         </button>
       </div>
     )
   }
 }
 
-Document.propTypes = {
+NewDocument.propTypes = {
+  createDocument: PropTypes.func.isRequired
 }
 
-export default connect()(NewDocument)
+export default connect(null, {
+  createDocument
+})(NewDocument)

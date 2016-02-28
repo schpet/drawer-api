@@ -1,12 +1,13 @@
+
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   # Serve websocket cable requests in-process
   # mount ActionCable.server => '/cable'
-  root to: "drawer#index"
+  root to: 'drawer#index'
 
   namespace :api do
-    resources :documents, only: [:index]
+    resources :documents, only: [:index, :create]
     resource :user, only: [:show]
     resources :upload_keys, only: [:create]
   end
