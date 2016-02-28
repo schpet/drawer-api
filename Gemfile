@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
 
-
 gem 'rails', '>= 5.0.0.beta2', '< 5.1'
 
 gem 'spring', :group => :development
@@ -11,6 +10,8 @@ gem 'pg'
 
 gem 'oauth2'
 gem 'jwt'
+gem 'pundit'
+
 gem 'aws-sdk', '~> 2'
 
 group :development, :test do
@@ -18,7 +19,6 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'dotenv-rails'
   gem 'http_logger'
-
 end
 
 # To use ActiveModel has_secure_password
