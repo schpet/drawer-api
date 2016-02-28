@@ -10,13 +10,15 @@ class Api::UploadKeysController < ApplicationController
     }
   end
 
-  private 
+  private
 
   def set_s3_direct_post
     @s3_direct_post = S3_BUCKET.presigned_post(
-      key: "uploads/#{SecureRandom.uuid}/${filename}", 
-      success_action_status: '201', 
-      acl: 'public-read'
+      key: "uploads/#{SecureRandom.uuid}/${filename}",
+      success_action_status: '201',
+      acl: 'public-read',
+      content_disposition_starts_with: '',
+      content_type_starts_with: ''
     )
   end
 end
