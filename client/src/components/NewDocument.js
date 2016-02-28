@@ -14,8 +14,19 @@ class NewDocument extends React.Component {
     }
   }
 
-  uploadFile (keys, file) {
-    // from react s3 uploader
+  buildFormData (fields, file) {
+    let data = new FormData()
+    for (var prop in fields) {
+      if (fields.hasOwnProperty(prop)) {
+        data.append(prop, fields[prop])
+      }
+    }
+    data.append('file', file)
+    return data
+  }
+
+  uploadFile = (keys, file) => {
+    // copied from react s3 uploader
     const normalizedFileName = unorm.nfc(file.name.replace(/\s+/g, '_'))
     const fileName = latinize(normalizedFileName)
 
@@ -29,8 +40,6 @@ class NewDocument extends React.Component {
       .post(keys.url)
       .send(formData)
       .set('Accept', 'XML')
-      // .set('Content-Type', file.type)
-      // .set('Content-Disposition', `inline; filename=${fileName}`)
       .on('progress', (e) => {
         // TODO handle multiple uploads
         this.setState({ progress: e.percent })
@@ -49,24 +58,11 @@ class NewDocument extends React.Component {
                       .childNodes[0]
                       .nodeValue
 
-        console.log(key, file.size)
         this.props.createDocument(fileName, key, file.type, file.size)
-        console.log("created doc?")
       })
   }
 
-  buildFormData (fields, file) {
-    let data = new FormData()
-    for (var prop in fields) {
-      if (fields.hasOwnProperty(prop)) {
-        data.append(prop, fields[prop])
-      }
-    }
-    data.append('file', file)
-    return data
-  }
-
-  onDrop (files) {
+  onDrop = (files) => {
     files.forEach((file) => {
       fetch('http://localhost:3000/api/upload_keys',
         {
@@ -78,12 +74,8 @@ class NewDocument extends React.Component {
     })
   }
 
-  onOpenClick () {
+  onOpenClick = () => {
     this.refs.dropzone.open()
-  }
-
-  componentDidMount () {
-
   }
 
   render () {
@@ -97,8 +89,8 @@ class NewDocument extends React.Component {
 
     return (
       <div>
-        <Dropzone ref='dropzone' onDrop={this.onDrop.bind(this)} />
-        <button type='button' onClick={this.onOpenClick.bind(this)}>
+        <Dropzone ref='dropzone' onDrop={this.onDrop} />
+        <button type='button' onClick={this.onOpenClick}>
           Open Dropzone
         </button>
       </div>
