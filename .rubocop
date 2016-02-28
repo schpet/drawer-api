@@ -1,0 +1,12 @@
+Rails:
+  Enabled: true
+
+AllCops:
+  Exclude:
+    - 'db/**/*'
+    - 'spec/**/*'
+    - 'config/**/*'
+    - 'bin/**/*'
+    - 'vendor/**/*'
+  DisplayCopNames: true
+  TargetRubyVersion: 2.3
