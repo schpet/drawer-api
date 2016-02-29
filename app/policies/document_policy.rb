@@ -3,8 +3,12 @@ class DocumentPolicy < ApplicationPolicy
     user == record.user
   end
 
+  def show?
+    true
+  end
+
   def permitted_attributes
-    [:s3_key, :filename, :mime_type, :file_size ]
+    [:s3_key, :filename, :mime_type, :file_size]
   end
 
   class Scope < Scope

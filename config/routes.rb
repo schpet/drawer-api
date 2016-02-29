@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   root to: 'drawer#index'
 
   namespace :api do
-    resources :documents, only: [:index, :create]
+    resources :documents, only: [:index, :create, :show]
     resource :user, only: [:show]
     resources :upload_keys, only: [:create]
   end
