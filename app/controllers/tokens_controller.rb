@@ -1,8 +1,11 @@
 class TokensController < ApplicationController
+  include Rails.application.routes.url_helpers
 
   def request_token
     oauth = Oauth.create!
-    redirect_to GITHUB.auth_code.authorize_url(state: oauth.state, redirect_uri: ENV.fetch('OAUTH_CALLBACK'), scope: "read:org")
+    redirect_to GITHUB.auth_code.authorize_url(state: oauth.state,
+                                               redirect_uri: access_token_url,
+                                               scope: "read:org")
   end
 
   def access_token
@@ -10,8 +13,8 @@ class TokensController < ApplicationController
     return redirect_to ENV.fetch('ORIGIN') unless oauth
 
     token = GITHUB.auth_code.get_token(params.fetch(:code),
-                                       state: oauth.state, 
-                                       redirect_uri: ENV.fetch('OAUTH_CALLBACK'))
+                                       state: oauth.state,
+                                       redirect_uri: access_token_url)
 
     # TODO handle github api http failures
     profile_response = token.get("https://api.github.com/user")
@@ -28,12 +31,12 @@ class TokensController < ApplicationController
     # TODO hold onto their access token to query gh api at a later date?
     # figure out how omniauth does that
 
-    user = User.where(uid: profile.fetch("id")).first_or_create do |u| 
+    user = User.where(uid: profile.fetch("id")).first_or_create do |u|
       u.handle = profile.fetch("login")
       u.token = token.token
     end
 
-    jwt = JWT.encode({ uid: user.uid, exp: 1.day.from_now.to_i }, 
+    jwt = JWT.encode({ uid: user.uid, exp: 1.day.from_now.to_i },
                      Rails.application.secrets.secret_key_base)
 
     redirect_to ENV.fetch('ORIGIN') + "?jwt=#{jwt}"
