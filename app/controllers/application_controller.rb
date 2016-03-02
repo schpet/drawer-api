@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::API
   include Pundit
-  before_action :allow_cross_origin_requests, if: -> { Rails.env.development? }
+  before_action :allow_cross_origin_requests
 
   def preflight
     render nothing: true
@@ -9,6 +9,7 @@ class ApplicationController < ActionController::API
   private
 
   def allow_cross_origin_requests
+    # TODO lock this down to the env['ORIGIN'] ?
     headers['Access-Control-Allow-Origin'] = '*'
     headers['Access-Control-Request-Method'] = '*'
     headers['Access-Control-Allow-Methods'] = 'POST, PUT, DELETE, GET, OPTIONS'
