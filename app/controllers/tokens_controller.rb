@@ -36,7 +36,7 @@ class TokensController < ApplicationController
       u.token = token.token
     end
 
-    jwt = JWT.encode({ uid: user.uid, exp: 1.day.from_now.to_i },
+    jwt = JWT.encode({ uid: user.uid, exp: 30.days.from_now.to_i },
                      Rails.application.secrets.secret_key_base)
 
     redirect_to ENV.fetch('ORIGIN') + "?jwt=#{jwt}"
