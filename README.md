@@ -1,7 +1,7 @@
 # Drawer Server
 
 a little rails server for storing files, thrown up as a demonstration. also
-check out the [web client](../drawer-web)
+check out the [web client](https://github.com/schpet/drawer-web)
 
 
 ## TODO
